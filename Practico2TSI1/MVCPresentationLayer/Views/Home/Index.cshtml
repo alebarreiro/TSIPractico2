@@ -2,65 +2,13 @@
     ViewBag.Title = "Home Page";
 }
 
-   
+<script>
+    var user = "@HttpContext.Current.User.Identity.Name";
+</script>
 
-@section scripts {
-  
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.chatbox.js")"></script>
 
-    <script type="text/javascript">
-        //$(document).ready(function () {
 
-        //      });
-
-        var WebSocket = WebSocket || MozWebSocket;
-        var myWS = new WebSocket("ws://localhost:8181");
-
-        myWS.onopen = function (evt) {
-            myWS.send("@HttpContext.Current.User.Identity.Name");
-        };
-
-        myWS.onmessage = function (evt) {
-            obj = JSON.parse(evt.data.toString());
-            $("#chat_div").chatbox("option", "boxManager").addMsg(obj.id, obj.msg);
-        };
-
-        myWS.onclose = function (evt) {
-            //alert("close socket!");
-        };
-
-        function SendMessage() {
-            var text = document.getElementById("chatbox").value
-            myWS.send(text);
-        };
-
-        var box = null;
-        //uichat
-        $(document).ready(function () {
-          //  $("#toggle").click(function (event, ui) {
-                if (box) {
-                    box.chatbox("option", "boxManager").toggleBox();
-                }
-                else {
-                    box = $("#chat_div").chatbox({
-                        id: "chat_div",
-                        user: { key: "value" },
-                        title: "chat",
-                        messageSent: function (id, user, msg) {
-                            myWS.send(msg);
-                        }
-                    });
-                    //minimizo
-                    box.chatbox("toggleContent");
-                }
-           // });
-        });
-
-    </script>
-}
 <div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -68,12 +16,19 @@
 </div>
 
 
-<input type="button" id="toggle"
-       name="toggle" value="toggle" />
 <div id="chat_div">
 </div>
 <hr />
 
+
+<div id="accordion">
+    <h3>One</h3>
+    <div>One - Contents</div>
+    <h3>Two</h3>
+    <div>Two - Contents</div>
+    <h3>Three</h3>
+    <div>Three - Contents</div>
+</div>
 
 
 <div class="row">
@@ -97,3 +52,16 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+@section scripts {
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.chatbox.js")"></script>
+
+}
+
+@if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
+{   
+    @Scripts.Render("~/bundles/chat");
+}
