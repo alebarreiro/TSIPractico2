@@ -54,7 +54,7 @@ namespace PresentationLayerConsole
                 string line = Console.ReadLine();
 
                 log4net.Config.XmlConfigurator.Configure();
-                System.Console.Write("Prueba2");
+
                 do
                 {
                     string[] parameters = line.Split(new string[] { " " }, StringSplitOptions.None);                   
