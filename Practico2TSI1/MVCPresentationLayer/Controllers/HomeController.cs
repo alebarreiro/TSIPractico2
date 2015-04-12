@@ -10,6 +10,7 @@ namespace MVCPresentationLayer.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.LoggedIn = false;
             return View();
         }
 

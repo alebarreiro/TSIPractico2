@@ -29,6 +29,18 @@
             </div>
         </div>
     </div>
+
+
+    @if (ViewBag.LoggedIn)
+    {
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">Inicio</a></li>
+            <li><a href="#">Empleados</a></li>
+            <li><a href="#">Mensajes</a></li>
+        </ul>
+    }
+    
+
     <div class="container body-content">
         @RenderBody()
         <hr />
