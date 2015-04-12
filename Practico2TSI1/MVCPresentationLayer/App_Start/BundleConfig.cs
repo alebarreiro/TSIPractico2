@@ -1,8 +1,17 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Optimization;
 
 namespace MVCPresentationLayer
 {
+    class NonOrderingBundleOrderer : IBundleOrderer
+    {
+        public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<System.Web.Optimization.BundleFile> files)
+        {
+            return files;
+        }
+    }
+
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
@@ -39,6 +48,14 @@ namespace MVCPresentationLayer
                       "~/Content/jquery-ui.css"
                       ));
 
+            var bund = new ScriptBundle("~/bundles/chat").Include(
+                       "~/Scripts/jquery-{version}.js",
+                       "~/Scripts/jquery-ui.js",
+                       "~/Scripts/jquery.ui.chatbox.js",
+                       "~/Scripts/Chat.js"
+                       );
+            bund.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(bund);
         }
     }
 }
