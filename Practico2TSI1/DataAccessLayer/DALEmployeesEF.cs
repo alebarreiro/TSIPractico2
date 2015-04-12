@@ -137,5 +137,20 @@ namespace DataAccessLayer
                 return query.ToList();
             }
         }
+
+        public Employee GetEmployeeByEmail(string email)
+        {
+            using (var context = new EmployeesEFContext())
+            {
+                var query = from e in context.Employees
+                            where e.Email == email
+                            select e;
+                if (query.Count() > 0)
+                    return query.First();
+                else
+                    return null;
+            }
+        }
+
     }
 }

@@ -43,6 +43,11 @@ namespace BusinessLogicLayer
             return _dal.GetEmployee(id);
         }
 
+        public Employee GetEmployeeByEmail(string email)
+        {
+            return _dal.GetEmployeeByEmail(email);
+        }
+
         public List<Employee> SearchEmployees(string searchTerm)
         {
             return _dal.SearchEmployees(searchTerm);
