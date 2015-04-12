@@ -51,7 +51,7 @@ namespace PresentationLayerConsole
                 PartTimeEmployee p;
 
                 PrintHelp();
-                System.Console.Write(">>:");
+                System.Console.Write(">");
                 string line = Console.ReadLine();
 
                 log4net.Config.XmlConfigurator.Configure();
