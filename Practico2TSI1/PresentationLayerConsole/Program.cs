@@ -21,6 +21,7 @@ namespace PresentationLayerConsole
                                     "DeleteEmployee", "UpdateEmployee", "GetAllEmployees",
                                     "GetEmployee", "SearchEmployees", "CalcPartTime"
                                     };
+        
         static string[] Usage = {
                                  "","","<Name> <StartDate> <Salary>", "<Name> <StartDate> <HourlyDate>",
                                  "<Id>", "<Id> <Name> <StartDate> <Salary|HourlyDate>", "",
