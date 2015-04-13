@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
+using DataAccessLayer;
 
 namespace PresentationLayerConsole
 {
     public static class Helper
     {
-        /*
+        
         public static void RegisterTypes(UnityContainer container)
         {
             //register the concrete implementation for interfaces
@@ -25,6 +26,6 @@ namespace PresentationLayerConsole
             BLEmployees blEmployees = new BLEmployees(container.Resolve<IDALEmployees>());
             container.RegisterInstance(blEmployees);
         }
-     */   
+       
     }
 }
