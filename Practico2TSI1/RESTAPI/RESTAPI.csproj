@@ -296,15 +296,15 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+    <ProjectReference Include="..\..\..\TSI\PracticoTSI1\BusinessLogicLayer\BusinessLogicLayer.csproj">
       <Project>{a07aa8df-3a92-4cc5-b111-5dea0447c2a3}</Project>
       <Name>BusinessLogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CrossCutting\Shared.csproj">
+    <ProjectReference Include="..\..\..\TSI\PracticoTSI1\CrossCutting\Shared.csproj">
       <Project>{8b1e409e-8eb8-4171-8d99-5db230da4889}</Project>
       <Name>Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PresentationLayerConsole\PresentationLayerConsole.csproj">
+    <ProjectReference Include="..\..\..\TSI\PracticoTSI1\PresentationLayerConsole\PresentationLayerConsole.csproj">
       <Project>{487a539d-5211-47c8-b338-c4b01d86c006}</Project>
       <Name>PresentationLayerConsole</Name>
     </ProjectReference>
