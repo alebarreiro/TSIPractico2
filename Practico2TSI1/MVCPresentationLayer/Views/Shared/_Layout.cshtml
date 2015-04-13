@@ -3,11 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Sistema de Gestión de Empleados</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquerychat");
+    <script language="javascript" src="~/Scripts/empleados.js" type="text/javascript"></script>
+    <script language="javascript" src="~/Scripts/notify.js" type="text/javascript"></script>
+    <script language="javascript" src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+    <script language="javascript" src="~/Scripts/jquery-ui.js" type="text/javascript"></script>
 </head>
-
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -29,6 +33,25 @@
             </div>
         </div>
     </div>
+
+
+    
+    <ul class="nav nav-tabs">
+        @if (ViewBag.Pagina.Equals("Inicio"))
+        {
+            <li class="active"><a href="#">Inicio</a></li>
+            <li><a href="/Employees">Empleados</a></li>
+        }
+        else
+        {
+            <li><a href="#">Inicio</a></li>
+            <li class="active"><a href="/Employees">Empleados</a></li>
+        }
+        
+    </ul>
+    
+    
+
     <div class="container body-content">
         @RenderBody()
         <hr />
