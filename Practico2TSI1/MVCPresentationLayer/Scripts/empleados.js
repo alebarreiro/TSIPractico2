@@ -5,11 +5,16 @@ function seleccionar(idEmpleado) {
 }
 
 function agregarEmpleado() {
-    var datos = "nombre=" + document.getElementById("nombre").value + "&mail=" + document.getElementById("mail") +
-                "&tipoEmpleado=" + document.getElementById("tipoEmpleado") + "&salario=" + document.getElementById("salario");
+    var datos = [
+        { "nombre": document.getElementById("nombre").value },
+        { "mail": document.getElementById("mail").value },
+        { "tipoEmpleado": document.getElementById("tipoEmpleado") },
+        { "salario": document.getElementById("salario") }
+    ];
+
     $.ajax({
         type: "POST",
-        url: "/Employees/AgregarEmpleado",
+        url: "~/Employees/AgregarEmpleado",
         data: JSON.stringify(datos),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -19,11 +24,16 @@ function agregarEmpleado() {
 }
 
 function modificarEmpleado() {
-    var datos = "nombre=" + document.getElementById("nombreModif").value + "&mail=" + document.getElementById("mailModif") +
-                "&tipoEmpleado=" + document.getElementById("tipoEmpleadoModif") + "&salario=" + document.getElementById("salarioModif");
+    var datos = [
+        { "nombre" : document.getElementById("nombreModif").value },
+        { "mail" : document.getElementById("mailModif").value },
+        { "tipoEmpleado": document.getElementById("tipoEmpleadoModif") },
+        { "salario" : document.getElementById("salarioModif")}
+    ];
+
     $.ajax({
         type: "POST",
-        url: "/Employees/ModificarEmpleado",
+        url: "~/Employees/ModificarEmpleado",
         data: JSON.stringify(datos),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -73,10 +83,13 @@ function chequearSeleccionBorrar() {
 }
 
 function borrarEmpleado() {
-    var datos = "idEmpleado=" + seleccionado;
+    var datos = [
+        { "idEmpleado" : seleccionado }
+    ];
+
     $.ajax({
         type: "POST",
-        url: "/Employees/BorrarEmpleado",
+        url: "~/Employees/BorrarEmpleado",
         data: JSON.stringify(datos),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
