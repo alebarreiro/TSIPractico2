@@ -46,13 +46,13 @@
       <HintPath>..\packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\Unity3\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Desktop\PracticoTSI1\Unity3\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\Unity3\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Desktop\PracticoTSI1\Unity3\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\Unity3\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Desktop\PracticoTSI1\Unity3\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
