@@ -57,5 +57,11 @@ namespace DataAccessLayer
         {
             return employeesRepository.Where(e => e.Name.Equals(searchTerm)).ToList();
         }
+
+        public Employee GetEmployeeByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -38,5 +38,10 @@ namespace DataAccessLayer
         {
             throw new NotImplementedException();
         }
+
+        public Employee GetEmployeeByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

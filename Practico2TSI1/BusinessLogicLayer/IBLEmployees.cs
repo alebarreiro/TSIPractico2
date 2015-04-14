@@ -17,6 +17,8 @@ namespace BusinessLogicLayer
 
         List<Employee> GetAllEmployees();
 
+        Employee GetEmployeeByEmail(string email);
+
         Employee GetEmployee(int id);
 
         List<Employee> SearchEmployees(string searchTerm);

@@ -31,6 +31,8 @@ namespace DataAccessLayer
                     m.Property(p => p.Name).HasColumnName("NAME");
                     m.Property(p => p.StartDate).HasColumnName("START_DATE");
                     m.Property(p => p.Salary).HasColumnName("SALARY");
+                    m.Property(p => p.Email).HasColumnName("EMAIL");
+                    m.Property(p => p.Password).HasColumnName("PASSWORD");
                 });
 
             modelBuilder.Entity<PartTimeEmployee>().Map(m =>
@@ -41,6 +43,8 @@ namespace DataAccessLayer
                     m.Property(p => p.Name).HasColumnName("NAME");
                     m.Property(p => p.StartDate).HasColumnName("START_DATE");
                     m.Property(p => p.HourlyDate).HasColumnName("RATE");
+                    m.Property(p => p.Email).HasColumnName("EMAIL");
+                    m.Property(p => p.Password).HasColumnName("PASSWORD");
                 });
         }
     }
@@ -137,5 +141,20 @@ namespace DataAccessLayer
                 return query.ToList();
             }
         }
+
+        public Employee GetEmployeeByEmail(string email)
+        {
+            using (var context = new EmployeesEFContext())
+            {
+                var query = from e in context.Employees
+                            where e.Email == email
+                            select e;
+                if (query.Count() > 0)
+                    return query.First();
+                else
+                    return null;
+            }
+        }
+
     }
 }

@@ -20,5 +20,7 @@ namespace DataAccessLayer
         Employee GetEmployee(int id);
 
         List<Employee> SearchEmployees(string searchTerm);
+
+        Employee GetEmployeeByEmail(string email);
     }
 }
