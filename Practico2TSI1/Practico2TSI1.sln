@@ -9,13 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCPresentationLayer", "MVC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTAPI", "RESTAPI\RESTAPI.csproj", "{20ACA79D-58FE-42FE-89E5-946075050F78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "..\..\TSI\Practico2TSI1\BusinessLogicLayer\BusinessLogicLayer.csproj", "{A07AA8DF-3A92-4CC5-B111-5DEA0447C2A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{A07AA8DF-3A92-4CC5-B111-5DEA0447C2A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\..\TSI\Practico2TSI1\CrossCutting\Shared.csproj", "{8B1E409E-8EB8-4171-8D99-5DB230DA4889}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "CrossCutting\Shared.csproj", "{8B1E409E-8EB8-4171-8D99-5DB230DA4889}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "..\..\TSI\Practico2TSI1\DataAccessLayer\DataAccessLayer.csproj", "{135E79F3-5B60-4253-8CA1-53DFE3A6024B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{135E79F3-5B60-4253-8CA1-53DFE3A6024B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayerConsole", "..\..\TSI\Practico2TSI1\PresentationLayerConsole\PresentationLayerConsole.csproj", "{487A539D-5211-47C8-B338-C4B01D86C006}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayerConsole", "PresentationLayerConsole\PresentationLayerConsole.csproj", "{487A539D-5211-47C8-B338-C4B01D86C006}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
