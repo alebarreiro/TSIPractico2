@@ -59,6 +59,15 @@
     <Compile Include="DALEmployeesMock.cs" />
     <Compile Include="DALEmployeesREST.cs" />
     <Compile Include="IDALEmployees.cs" />
+    <Compile Include="Migrations\201504072347134_InitialCreate.cs" />
+    <Compile Include="Migrations\201504072347134_InitialCreate.Designer.cs">
+      <DependentUpon>201504072347134_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504140123142_AddEmailPassword.cs" />
+    <Compile Include="Migrations\201504140123142_AddEmailPassword.Designer.cs">
+      <DependentUpon>201504140123142_AddEmailPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +79,14 @@
       <Project>{8b1e409e-8eb8-4171-8d99-5db230da4889}</Project>
       <Name>Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504072347134_InitialCreate.resx">
+      <DependentUpon>201504072347134_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504140123142_AddEmailPassword.resx">
+      <DependentUpon>201504140123142_AddEmailPassword.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
