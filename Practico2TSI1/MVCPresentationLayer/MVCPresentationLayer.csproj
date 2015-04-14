@@ -273,6 +273,10 @@
       <Project>{135e79f3-5b60-4253-8ca1-53dfe3a6024b}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RESTAPI\RESTAPI.csproj">
+      <Project>{20aca79d-58fe-42fe-89e5-946075050f78}</Project>
+      <Name>RESTAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
