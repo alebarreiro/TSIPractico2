@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-
+using System.Diagnostics;
 
 namespace DataAccessLayer
 {
@@ -97,6 +97,7 @@ namespace DataAccessLayer
 
         public void UpdateEmployee(Employee emp)
         {
+            Debug.WriteLine("update employee:" + emp.Id + emp.Name);
             using (var context = new EmployeesEFContext())
             {
                 var query = from e in context.Employees
@@ -105,6 +106,8 @@ namespace DataAccessLayer
                 foreach (Employee e in query){
                     e.Name = emp.Name;
                     e.StartDate = emp.StartDate;
+                    e.Email = emp.Email;
+                    e.Password = emp.Password;                    
                 }
                 context.SaveChanges();
             }
@@ -133,10 +136,11 @@ namespace DataAccessLayer
 
         public List<Employee> SearchEmployees(string searchTerm)
         {
+            Debug.WriteLine("busqueda:" + searchTerm);
             using (var context = new EmployeesEFContext())
             {
                 var query = from e in context.Employees
-                            where e.Name == searchTerm
+                            where e.Name.Equals(searchTerm)
                             select e;
                 return query.ToList();
             }
@@ -147,7 +151,7 @@ namespace DataAccessLayer
             using (var context = new EmployeesEFContext())
             {
                 var query = from e in context.Employees
-                            where e.Email == email
+                            where e.Email.Equals(email)
                             select e;
                 if (query.Count() > 0)
                     return query.First();

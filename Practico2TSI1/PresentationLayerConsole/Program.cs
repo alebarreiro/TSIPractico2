@@ -96,7 +96,7 @@ namespace PresentationLayerConsole
                                 Employee emp = blHandler.GetEmployee(Int32.Parse(parameters[1]));
                                 if (emp != null)
                                 {
-                                    emp.Id = Int32.Parse(parameters[1]);
+                                    //emp.Id = Int32.Parse(parameters[1]);
                                     emp.Name = parameters[2];
                                     emp.StartDate = Convert.ToDateTime(parameters[3]);
                                     int salary = Int32.Parse(parameters[4]);
@@ -122,7 +122,14 @@ namespace PresentationLayerConsole
 
                             case "GetEmployee":
                                 e = blHandler.GetEmployee(Int32.Parse(parameters[1]));
-                                System.Console.WriteLine(e.ToString());
+                                if (e != null)
+                                {
+                                    System.Console.WriteLine(e.ToString());
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("No existe empleado.");
+                                }
                                 break;
 
                             case "SearchEmployees":
