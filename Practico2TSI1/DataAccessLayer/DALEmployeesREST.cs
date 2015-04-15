@@ -7,6 +7,10 @@ using Shared.Entities;
 using RestSharp;
 using RestSharp.Deserializers;
 using System.Configuration;
+using System.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using DataAccessLayer.Transformers;
 
 //GET POST DELETE
 namespace DataAccessLayer
@@ -24,7 +28,15 @@ namespace DataAccessLayer
 
         public void AddEmployee(Employee emp)
         {
-            var request = new RestRequest("api/employees", Method.POST);
+            RestRequest request = null; ;
+            if (emp is PartTimeEmployee)
+            {
+                request = new RestRequest("api/employees/PartTime", Method.POST);
+            }
+            else
+            {
+                request = new RestRequest("api/employees/FullTime", Method.POST);
+            }
             request.RequestFormat = DataFormat.Json;
             request.AddBody(emp);
             client.Execute(request);
@@ -40,8 +52,17 @@ namespace DataAccessLayer
 
         public void UpdateEmployee(Employee emp)
         {
-            var request = new RestRequest("api/employees", Method.PUT);
+            RestRequest request = null; ;
+            if (emp is PartTimeEmployee)
+            {
+                request = new RestRequest("api/employees/PartTime", Method.PUT);
+            }
+            else
+            {
+                request = new RestRequest("api/employees/FullTime", Method.PUT);
+            }
             request.RequestFormat = DataFormat.Json;
+            Debug.WriteLine("DAL:" + emp.Name);
             request.AddBody(emp);
             client.Execute(request);
         }
@@ -50,8 +71,19 @@ namespace DataAccessLayer
         {
             var request = new RestRequest("api/employees", Method.GET);
             request.RequestFormat = DataFormat.Json;
-            var response = client.Execute<List<Employee>>(request);
-            return response.Data;
+            var response = client.Execute<List<string>>(request);
+            var converter = new EmployeeConverter();
+            List<Employee> list = new List<Employee>();
+
+
+            foreach (var e in response.Data)
+            {
+                Debug.WriteLine(e);
+                Employee emp = JsonConvert.DeserializeObject<Employee>(e, converter);
+                list.Add(emp);
+            }
+
+            return list;
         }
 
         public Employee GetEmployee(int id)
@@ -60,58 +92,63 @@ namespace DataAccessLayer
             request.RequestFormat = DataFormat.Json;
             request.AddUrlSegment("id", id.ToString());
             var response = client.Execute(request);
-            if (response.ErrorException != null)
-            {
-                RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
-                try
-                {
-                    var ob = deserial.Deserialize<PartTimeEmployee>(response);
-                    return ob;
-                }
-                catch (Exception e)
-                {
-                    var ob = deserial.Deserialize<FullTimeEmployee>(response);
-                    return ob;
-                }
-            }
-            else
+
+            Employee e = null;
+
+            var converter = new EmployeeConverter();
+
+            if (response.Content.Equals("null"))
             {
                 return null;
             }
+            else
+            {
+                e = JsonConvert.DeserializeObject<Employee>(response.Content, converter);
+                return e;
+            }
+            
         }
 
         public List<Employee> SearchEmployees(string searchTerm)
         {
-            var request = new RestRequest("api/employees", Method.GET);
-            request.RequestFormat = DataFormat.Json;
-            request.AddParameter("searchterm", searchTerm);
-            var response = client.Execute<List<Employee>>(request);
-            return response.Data;
+            var request = new RestRequest("api/employees/searchEmployees/{search}", Method.GET);
+            request.AddUrlSegment("search", searchTerm);
+
+            var response = client.Execute<List<string>>(request);
+            Debug.WriteLine("contenido" + response.Content);
+            var converter = new EmployeeConverter();
+            List<Employee> list = new List<Employee>();
+
+            foreach (var e in response.Data)
+            {
+                Debug.WriteLine(e);
+                Employee emp = JsonConvert.DeserializeObject<Employee>(e, converter);
+                list.Add(emp);
+            }
+
+            return list;
         }
 
         public Employee GetEmployeeByEmail(string email)
         {
-            var request = new RestRequest("api/employees", Method.GET);
-            request.RequestFormat = DataFormat.Json;
+            var request = new RestRequest("api/employees/{email}", Method.GET);
             request.AddUrlSegment("email", email);
+            request.RequestFormat = DataFormat.Json;
+
             var response = client.Execute(request);
-            if (response.ErrorException != null)
+            Debug.WriteLine(response.Content);
+            Employee e = null;
+
+            var converter = new EmployeeConverter();
+
+            if (response.Content.Equals("null"))
             {
-                RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
-                try
-                {
-                    var ob = deserial.Deserialize<PartTimeEmployee>(response);
-                    return ob;
-                }
-                catch (Exception e)
-                {
-                    var ob = deserial.Deserialize<FullTimeEmployee>(response);
-                    return ob;
-                }
+                return null;
             }
             else
             {
-                return null;
+                e = JsonConvert.DeserializeObject<Employee>(response.Content, converter);
+                return e;
             }
         }
 

@@ -40,17 +40,32 @@ namespace RESTAPI.Controllers
         }
 
         // GET api/employees/5
-        public IHttpActionResult Get(int id)
+        public Employee Get(int id)
         {
             try
             {
-                Employee e = blHandler.GetEmployee(id);
-                return Ok(e);
+                return blHandler.GetEmployee(id);
             }
             catch (Exception E)
             {
-                return NotFound();
+                return null;
             }     
+        }
+
+        // GET api/employees/5
+        public Employee Get(string email)
+        {
+            try
+            {
+                Employee e = blHandler.GetEmployeeByEmail(email);
+                return e;
+
+            }
+            catch (Exception E)
+            {
+                return null;
+
+            }
         }
 
         // POST api/employees/PartTime
@@ -105,20 +120,16 @@ namespace RESTAPI.Controllers
 
         // PUT api/employees/FullTime/{id}
         [HttpPut]
-        [Route("~/api/employees/FullTime/{id}")]
-        public HttpResponseMessage PutFullTime(int id, [FromBody]FullTimeEmployee fte)
+        [Route("~/api/employees/FullTime")]
+        public HttpResponseMessage PutFullTime([FromBody]FullTimeEmployee fte)
         {
-            Employee emp = blHandler.GetEmployee(id);
+            Employee emp = blHandler.GetEmployee(fte.Id);
             if (emp != null)
             {
                 if (fte != null)
                 {
-                    emp.Id = id;
-                    emp.Name = fte.Name;
-                    emp.StartDate = fte.StartDate;
-                    ((FullTimeEmployee)emp).Salary = fte.Salary;
-                    blHandler.UpdateEmployee(emp);
-                    return Request.CreateResponse(HttpStatusCode.OK, emp);
+                    blHandler.UpdateEmployee(fte);
+                    return Request.CreateResponse(HttpStatusCode.OK, fte);
                 }
                 else
                 {
@@ -128,26 +139,23 @@ namespace RESTAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, id);
+                return Request.CreateResponse(HttpStatusCode.NotFound, fte.Id);
             }            
         }
 
         // PUT api/employees/PartTime/{id}
         [HttpPut]
-        [Route("~/api/employees/PartTime/{id}")]
-        public HttpResponseMessage PutPartTime(int id, [FromBody]PartTimeEmployee pte)
-        {          
-            Employee emp = blHandler.GetEmployee(id);
+        [Route("~/api/employees/PartTime")]
+        public HttpResponseMessage PutPartTime([FromBody]PartTimeEmployee pte)
+        {
+            Debug.WriteLine("REST:" + pte.Id+ pte.Name);
+            Employee emp = blHandler.GetEmployee(pte.Id);
             if (emp != null)
             {
                 if (pte != null)
                 {
-                    emp.Id = id;
-                    emp.Name = pte.Name;
-                    emp.StartDate = pte.StartDate;
-                    ((PartTimeEmployee)emp).HourlyDate = pte.HourlyDate;
-                    blHandler.UpdateEmployee(emp);
-                    return Request.CreateResponse(HttpStatusCode.OK, emp);
+                    blHandler.UpdateEmployee(pte);
+                    return Request.CreateResponse(HttpStatusCode.OK, pte);
                 }
                 else
                 {
@@ -157,7 +165,7 @@ namespace RESTAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, id);
+                return Request.CreateResponse(HttpStatusCode.NotFound, pte.Id);
             }            
         }
 
@@ -179,17 +187,24 @@ namespace RESTAPI.Controllers
 
         [HttpGet]
         [Route("~/api/employees/searchEmployees/{searchTerm}")]
-        public IEnumerable<Employee> SearchEmployees(string searchTerm)
+        public List<Employee> SearchEmployees(string searchTerm)
         {
-                IEnumerable<Employee> list = blHandler.SearchEmployees(searchTerm);
+                List<Employee> list = blHandler.SearchEmployees(searchTerm);
                 return list;
-            
-
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            try
+            {
+                blHandler.DeleteEmployee(id);
+                return Request.CreateResponse(HttpStatusCode.OK, id);
+            }
+            catch (Exception E)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, id);
+            }
         }
     }
 }
