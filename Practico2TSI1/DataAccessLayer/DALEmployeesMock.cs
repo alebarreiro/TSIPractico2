@@ -40,6 +40,14 @@ namespace DataAccessLayer
             foreach(Employee e in employeesRepository.Where(n=> n.Id == emp.Id)){
                 e.Name = emp.Name;
                 e.StartDate = emp.StartDate;
+                if (emp is FullTimeEmployee)
+                {
+                    ((FullTimeEmployee)e).Salary = ((FullTimeEmployee)emp).Salary;
+                }
+                else
+                {
+                    ((PartTimeEmployee)e).HourlyDate = ((PartTimeEmployee)emp).HourlyDate;
+                }
             }       
         }
 
