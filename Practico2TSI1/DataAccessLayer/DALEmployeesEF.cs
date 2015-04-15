@@ -66,19 +66,25 @@ namespace DataAccessLayer
 
     public class DALEmployeesEF : IDALEmployees
     {
-
         public void AddEmployee(Employee emp)
         {
             using (var context = new EmployeesEFContext())
             {
-                //id problem
-                var query = context.Employees.OrderByDescending(e => e.Id).FirstOrDefault();
-                if (query == null)
-                    emp.Id = 1;
-                else
-                    emp.Id = query.Id + 1;
-                context.Employees.Add(emp);
-                context.SaveChanges();
+                try
+                {
+                    //id problem
+                    var query = context.Employees.OrderByDescending(e => e.Id).FirstOrDefault();
+                    if (query == null)
+                        emp.Id = 1;
+                    else
+                        emp.Id = query.Id + 1;
+                    context.Employees.Add(emp);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 
@@ -86,12 +92,20 @@ namespace DataAccessLayer
         {
             using (var context = new EmployeesEFContext())
             {
-                var query = from e in context.Employees
-                            where e.Id == id
-                            select e;
-                Employee emp = query.First();
-                context.Employees.Remove(emp);
-                context.SaveChanges();
+                try 
+                { 
+                    var query = from e in context.Employees
+                                where e.Id == id
+                                select e;
+                    Employee emp = query.First();
+                    context.Employees.Remove(emp);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
             }
         }
 
@@ -100,34 +114,50 @@ namespace DataAccessLayer
             Debug.WriteLine("update employee:" + emp.Id + emp.Name);
             using (var context = new EmployeesEFContext())
             {
-                var query = from e in context.Employees
-                            where e.Id == emp.Id
-                            select e;
-                foreach (Employee e in query){
-                    e.Name = emp.Name;
-                    e.StartDate = emp.StartDate;
-                    e.Email = emp.Email;
-                    e.Password = emp.Password;
-                    if (emp is FullTimeEmployee)
+                try
+                {
+                    var query = from e in context.Employees
+                                where e.Id == emp.Id
+                                select e;
+                    foreach (Employee e in query)
                     {
-                        ((FullTimeEmployee)e).Salary = ((FullTimeEmployee)emp).Salary;
+                        e.Name = emp.Name;
+                        e.StartDate = emp.StartDate;
+                        e.Email = emp.Email;
+                        e.Password = emp.Password;
+                        if (emp is FullTimeEmployee)
+                        {
+                            ((FullTimeEmployee)e).Salary = ((FullTimeEmployee)emp).Salary;
+                        }
+                        else
+                        {
+                            ((PartTimeEmployee)e).HourlyDate = ((PartTimeEmployee)emp).HourlyDate;
+                        }
                     }
-                    else
-                    {
-                        ((PartTimeEmployee)e).HourlyDate = ((PartTimeEmployee)emp).HourlyDate;
-                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 
         public List<Employee> GetAllEmployees()
         {
             using(var context = new EmployeesEFContext()){
-                var query = from e in context.Employees
-                            orderby e.Id
-                            select e;
-                return query.ToList();
+                try
+                {
+                    var query = from e in context.Employees
+                                orderby e.Id
+                                select e;
+                    return query.ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return null;
+                }
             }
         }
 
@@ -135,10 +165,18 @@ namespace DataAccessLayer
         {
             using (var context = new EmployeesEFContext())
             {
-                var query = from e in context.Employees
-                            where e.Id == id
-                            select e;
-                return query.First();
+                try
+                {
+                    var query = from e in context.Employees
+                                where e.Id == id
+                                select e;
+                    return query.First();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return null;
+                }
             }
         }
 
@@ -147,10 +185,18 @@ namespace DataAccessLayer
             Debug.WriteLine("busqueda:" + searchTerm);
             using (var context = new EmployeesEFContext())
             {
-                var query = from e in context.Employees
-                            where e.Name.Equals(searchTerm)
-                            select e;
-                return query.ToList();
+                try
+                {
+                    var query = from e in context.Employees
+                                where e.Name.Equals(searchTerm)
+                                select e;
+                    return query.ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return null;
+                }
             }
         }
 
@@ -158,13 +204,21 @@ namespace DataAccessLayer
         {
             using (var context = new EmployeesEFContext())
             {
-                var query = from e in context.Employees
-                            where e.Email.Equals(email)
-                            select e;
-                if (query.Count() > 0)
-                    return query.First();
-                else
+                try
+                {
+                    var query = from e in context.Employees
+                                where e.Email.Equals(email)
+                                select e;
+                    if (query.Count() > 0)
+                        return query.First();
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                     return null;
+                }
             }
         }
 
