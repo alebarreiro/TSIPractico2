@@ -55,17 +55,15 @@ namespace DataAccessLayer
             RestRequest request = null; ;
             if (emp is PartTimeEmployee)
             {
-                request = new RestRequest("api/employees/PartTime/{id}", Method.PUT);
-                //request.AddUrlSegment("id", emp.Id.ToString());
-                request.AddBody((PartTimeEmployee)emp);
+                request = new RestRequest("api/employees/PartTime", Method.PUT);
             }
             else
             {
-                request = new RestRequest("api/employees/FullTime/{id}", Method.PUT);
-                //request.AddUrlSegment("id", emp.Id.ToString());
-                request.AddBody((FullTimeEmployee)emp);
+                request = new RestRequest("api/employees/FullTime", Method.PUT);
             }
             request.RequestFormat = DataFormat.Json;
+            Debug.WriteLine("DAL:" + emp.Name);
+            request.AddBody(emp);
             client.Execute(request);
         }
 

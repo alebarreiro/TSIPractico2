@@ -19,13 +19,15 @@ namespace PresentationLayerConsole
                                     "exit",
                                     "help", "AddFullTimeEmployee", "AddPartTimeEmployee",
                                     "DeleteEmployee", "UpdateEmployee", "GetAllEmployees",
-                                    "GetEmployee", "SearchEmployees", "CalcPartTime"
+                                    "GetEmployee", "SearchEmployees", "CalcPartTime",
+                                    "GetEmployeeByMail"
                                     };
         
         static string[] Usage = {
                                  "","","<Name> <StartDate> <Salary>", "<Name> <StartDate> <HourlyDate>",
                                  "<Id>", "<Id> <Name> <StartDate> <Salary|HourlyDate>", "",
-                                 "<Id>", "<Sentence>", "<Id> <Hours>"
+                                 "<Id>", "<Sentence>", "<Id> <Hours>",
+                                 "<email>"
                                  };
         static void PrintHelp()
         {
@@ -93,23 +95,26 @@ namespace PresentationLayerConsole
                                 break;
 
                             case "UpdateEmployee":
-                                Employee emp = blHandler.GetEmployee(Int32.Parse(parameters[1]));
-                                if (emp != null)
+                                Employee em = blHandler.GetEmployee(Int32.Parse(parameters[1]));
+                                Employee emp = null;
+
+                                int salary = Int32.Parse(parameters[4]);
+                                if (em is FullTimeEmployee)
                                 {
-                                    //emp.Id = Int32.Parse(parameters[1]);
-                                    emp.Name = parameters[2];
-                                    emp.StartDate = Convert.ToDateTime(parameters[3]);
-                                    int salary = Int32.Parse(parameters[4]);
-                                    if (emp is FullTimeEmployee)
-                                        ((FullTimeEmployee)emp).Salary = salary;
-                                    else
-                                        ((PartTimeEmployee)emp).HourlyDate = salary;
-                                    blHandler.UpdateEmployee(emp);
+                                    emp = new FullTimeEmployee();
+                                    ((FullTimeEmployee)emp).Salary = salary;
                                 }
                                 else
                                 {
-                                    throw new Exception("Error: ID empleado no existe.");
+                                    emp = new PartTimeEmployee();
+                                    ((PartTimeEmployee)emp).HourlyDate = salary;
                                 }
+                                emp.Id = Int32.Parse(parameters[1]);
+                                emp.Name = parameters[2];
+                                emp.StartDate = Convert.ToDateTime(parameters[3]);
+ 
+                                blHandler.UpdateEmployee(emp);
+                                System.Console.WriteLine("preselayer:" + emp.Name);
                                 break;
 
                             case "GetAllEmployees":
@@ -122,6 +127,18 @@ namespace PresentationLayerConsole
 
                             case "GetEmployee":
                                 e = blHandler.GetEmployee(Int32.Parse(parameters[1]));
+                                if (e != null)
+                                {
+                                    System.Console.WriteLine(e.ToString());
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("No existe empleado.");
+                                }
+                                break;
+
+                            case "GetEmployeeByMail":
+                                e = blHandler.GetEmployeeByEmail(parameters[1]);
                                 if (e != null)
                                 {
                                     System.Console.WriteLine(e.ToString());

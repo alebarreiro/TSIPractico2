@@ -120,7 +120,7 @@ namespace RESTAPI.Controllers
 
         // PUT api/employees/FullTime/{id}
         [HttpPut]
-        [Route("~/api/employees/FullTime/{id}")]
+        [Route("~/api/employees/FullTime")]
         public HttpResponseMessage PutFullTime([FromBody]FullTimeEmployee fte)
         {
             Employee emp = blHandler.GetEmployee(fte.Id);
@@ -128,8 +128,8 @@ namespace RESTAPI.Controllers
             {
                 if (fte != null)
                 {
-                    blHandler.UpdateEmployee(emp);
-                    return Request.CreateResponse(HttpStatusCode.OK, emp);
+                    blHandler.UpdateEmployee(fte);
+                    return Request.CreateResponse(HttpStatusCode.OK, fte);
                 }
                 else
                 {
@@ -148,13 +148,14 @@ namespace RESTAPI.Controllers
         [Route("~/api/employees/PartTime")]
         public HttpResponseMessage PutPartTime([FromBody]PartTimeEmployee pte)
         {
+            Debug.WriteLine("REST:" + pte.Id+ pte.Name);
             Employee emp = blHandler.GetEmployee(pte.Id);
             if (emp != null)
             {
                 if (pte != null)
                 {
-                    blHandler.UpdateEmployee(emp);
-                    return Request.CreateResponse(HttpStatusCode.OK, emp);
+                    blHandler.UpdateEmployee(pte);
+                    return Request.CreateResponse(HttpStatusCode.OK, pte);
                 }
                 else
                 {

@@ -107,7 +107,15 @@ namespace DataAccessLayer
                     e.Name = emp.Name;
                     e.StartDate = emp.StartDate;
                     e.Email = emp.Email;
-                    e.Password = emp.Password;                    
+                    e.Password = emp.Password;
+                    if (emp is FullTimeEmployee)
+                    {
+                        ((FullTimeEmployee)e).Salary = ((FullTimeEmployee)emp).Salary;
+                    }
+                    else
+                    {
+                        ((PartTimeEmployee)e).HourlyDate = ((PartTimeEmployee)emp).HourlyDate;
+                    }
                 }
                 context.SaveChanges();
             }
