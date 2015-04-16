@@ -24,16 +24,16 @@ function agregarEmpleado() {
 }
 
 function modificarEmpleado() {
-    var datos = [
-        { "nombre" : document.getElementById("nombreModif").value },
-        { "mail" : document.getElementById("mailModif").value },
-        { "tipoEmpleado": document.getElementById("tipoEmpleadoModif") },
-        { "salario" : document.getElementById("salarioModif")}
-    ];
+    var datos = {
+         "nombre" : document.getElementById("nombreModif").value,
+         "mail": document.getElementById("mailModif").value,
+         "tipoEmpleado": $('input[name=tipoEmpleadoModif]:checked').val(),
+         "salario" : document.getElementById("salarioModif").value
+    };
 
     $.ajax({
         type: "POST",
-        url: "~/Employees/ModificarEmpleado",
+        url: "/Employees/ModificarEmpleado",
         data: JSON.stringify(datos),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -83,13 +83,13 @@ function chequearSeleccionBorrar() {
 }
 
 function borrarEmpleado() {
-    var datos = [
-        { "idEmpleado" : seleccionado }
-    ];
+    var datos = {
+         "idEmpleado" : seleccionado 
+    };
 
     $.ajax({
         type: "POST",
-        url: "~/Employees/BorrarEmpleado",
+        url: "/Employees/BorrarEmpleado",
         data: JSON.stringify(datos),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
