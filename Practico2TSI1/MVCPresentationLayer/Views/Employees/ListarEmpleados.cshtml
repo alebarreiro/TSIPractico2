@@ -1,12 +1,13 @@
 ﻿@using Shared.Entities
 <div style="margin-top : 5%;">
     <input type="button" class="btn btn-primary" value="Agregar Empleado" onclick="$('#agregarEmpleado').modal();" />
+    <input type="button" class="btn btn-primary" value="Calcular Salario" onclick="chequearSeleccionSalario();" />
     <input type="button" class="btn btn-success" value="Modificar Empleado" onclick="chequearSeleccionModificar();" />
     <input type="button" class="btn btn-danger" value="Borrar Empleado" onclick="chequearSeleccionBorrar();" />
 </div>
 @if(ViewBag.HayEmpleados)
 {
-    <table class="table table-hover">
+    <table class="table">
         <tr>
             <td>
                 Nombre
@@ -24,7 +25,7 @@
 
         @foreach (Employee e in ViewBag.Empleados)
         {
-            <tr>
+            <tr class="row-empleado-@e.Id" onclick="seleccionar(@e.Id)">
                 <td>
                     @e.Name
                 </td>
@@ -32,8 +33,7 @@
                     @e.StartDate.ToUniversalTime()
                 </td>
                 <td>
-
-                    @if (e.GetType().ToString().Equals("PartTimeEmployee"))
+                    @if (e.GetType().ToString().Equals("Shared.Entities.PartTimeEmployee"))
                     {
                         string tipoEmp = "Empleado Part Time";
                         @tipoEmp
@@ -175,6 +175,27 @@ else
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="Login()">Save Password</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="CalcPartTime">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Calcular salario empleado Part Time</h4>
+            </div>
+            <div class="modal-body">
+                Horas trabajadas : <input type="text" class="form-control" id="horas" placeholder="Ingrese cantidad de horas" />
+            </div>
+            <div class="modal-body" id="resultadoPartTime" style="display:none">
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="calcularSalario()">Calcular</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div><!-- /.modal-content -->

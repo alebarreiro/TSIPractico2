@@ -225,5 +225,32 @@ namespace MVCPresentationLayer.Controllers
             }
         }
 
+        // GET: Employees/CalcPartTime/{id}
+        [HttpGet]
+        public ActionResult CalcPartTime(int id)
+        {
+            IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
+            Employee e = bl.GetEmployee(id);
+            if (e != null)
+            {
+                if (e is PartTimeEmployee)
+                {
+                    e = (PartTimeEmployee)e;
+                    return Json(new { success = "Valid", hourlyRate = ((PartTimeEmployee)e).HourlyDate, partTime = true }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { success = "Valid", partTime = false }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                Dictionary<string, object> error = new Dictionary<string, object>();
+                error.Add("ErrorCode", -1);
+                error.Add("ErrorMessage", "Something really bad happened.");
+                return Json(error);
+            }
+        }
+
     }
 }
