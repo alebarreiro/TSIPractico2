@@ -1,5 +1,5 @@
 ﻿@using Shared.Entities
-<div style="margin-top : 5%;">
+<div style="margin-top : 5%; margin-bottom : 5%;">
     <input type="button" class="btn btn-primary" value="Agregar Empleado" onclick="$('#agregarEmpleado').modal();" />
     <input type="button" class="btn btn-success" value="Modificar Empleado" onclick="chequearSeleccionModificar();" />
     <input type="button" class="btn btn-danger" value="Borrar Empleado" onclick="chequearSeleccionBorrar();" />
@@ -24,7 +24,7 @@
 
         @foreach (Employee e in ViewBag.Empleados)
         {
-            <tr>
+            <tr id="@e.Id" onclick="seleccionar(@e.Id)">
                 <td>
                     @e.Name
                 </td>
@@ -68,6 +68,7 @@ else
             <div class="modal-body">
                 Mail : <input type="text" class="form-control" id="mail" placeholder="Mail" />
                 Nombre : <input type="text" class="form-control" id="nombre" placeholder="Nombre" />
+                Password : <input type="password" class="form-control" id="pass" placeholder="Password" />
                 Tipo Empleado :
                 <div class="radio">
                     <label>
@@ -152,7 +153,7 @@ else
             <div class="modal-body" id="bodyNotificaciones" style="background-color:whitesmoke">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="cerrarNotificaciones" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

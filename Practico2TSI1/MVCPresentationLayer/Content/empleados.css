@@ -2,3 +2,13 @@
     margin-top: 200px;
     margin-bottom: 200px;
 }
+
+.seleccionado {
+    background-color : blue;
+    color : white;
+}
+
+.seleccionado:hover{
+    background-color : yellow;
+    color : blue;
+}
