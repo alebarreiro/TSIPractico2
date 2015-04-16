@@ -8,6 +8,8 @@ using DataAccessLayer;
 using Shared.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Net.Http;
 
 namespace MVCPresentationLayer.Controllers
 {
@@ -15,15 +17,15 @@ namespace MVCPresentationLayer.Controllers
     {
         [Serializable]
         public class DatosAgregarEmpleado{
-            public string nombre;
-            public string mail;
-            public string tipoEmpleado;
-            public Int32 salario;
+            public string nombre { get; set; }
+            public string mail { get; set; }
+            public string tipoEmpleado { get; set; }
+            public int salario { get; set; }
         }
 
         [Serializable]
         public class DatosBorrarEmpleado{
-            public Int32 idEmpleado;
+            public int idEmpleado { get; set; }
         }
 
         // GET: Employees
@@ -55,6 +57,11 @@ namespace MVCPresentationLayer.Controllers
         [HttpPost]
         public ActionResult AgregarEmpleado(DatosAgregarEmpleado nuevoEmpleado)
         {
+            Debug.WriteLine(nuevoEmpleado.mail);
+            Debug.WriteLine(nuevoEmpleado.nombre);
+            Debug.WriteLine(nuevoEmpleado.salario);
+            Debug.WriteLine(nuevoEmpleado.mail);
+
             if (Request.IsAjaxRequest())
             {
                 if (nuevoEmpleado.tipoEmpleado.Equals("partTime"))
@@ -63,6 +70,7 @@ namespace MVCPresentationLayer.Controllers
                     partEmp.StartDate = DateTime.Now;
                     partEmp.Name = nuevoEmpleado.nombre;
                     partEmp.HourlyDate = nuevoEmpleado.salario;
+                    partEmp.FirstLogin = true;
                     //faltaria la parte del usuario
                     IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                     try
@@ -72,6 +80,7 @@ namespace MVCPresentationLayer.Controllers
                     catch (Exception e)
                     {
                         //devolver error json
+                        Debug.WriteLine("ERROR!");
                         Dictionary<string, object> error = new Dictionary<string, object>();
                         error.Add("ErrorCode", -1);
                         error.Add("ErrorMessage", "Something really bad happened");
@@ -85,6 +94,7 @@ namespace MVCPresentationLayer.Controllers
                     fullEmp.Name = nuevoEmpleado.nombre;
                     fullEmp.Salary = nuevoEmpleado.salario;
                     fullEmp.StartDate = DateTime.Now;
+                    fullEmp.FirstLogin = true;
                     //falta la parte del usuario
                     IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                     try

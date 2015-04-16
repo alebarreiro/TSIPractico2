@@ -5,16 +5,16 @@ function seleccionar(idEmpleado) {
 }
 
 function agregarEmpleado() {
-    var datos = [
-        { "nombre": document.getElementById("name").value },
-        { "mail": document.getElementById("email").value },
-        { "tipoEmpleado": document.getElementById("tipoEmpleadoradio").value },
-        { "salario": document.getElementById("salarioVal").value }
-    ];
+    var datos = {
+        "nombre": document.getElementById("name").value,
+        "mail": document.getElementById("email").value ,
+        "tipoEmpleado": $('input[name=tipoEmpleado]:checked').val(),
+        "salario": document.getElementById("salarioVal").value
+    };
 
     $.ajax({
         type: "POST",
-        url: "~/Employees/AgregarEmpleado",
+        url: "/Employees/AgregarEmpleado",
         data: JSON.stringify(datos),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
