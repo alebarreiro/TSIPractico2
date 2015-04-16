@@ -18,10 +18,10 @@ function seleccionar(idEmpleado) {
 
 function agregarEmpleado() {
     var datos = {
-        "nombre": document.getElementById("name").value,
-        "mail": document.getElementById("email").value ,
+        "nombre": $("#name").val(),
+        "mail": $("#email").val() ,
         "tipoEmpleado": $('input[name=tipoEmpleado]:checked').val(),
-        "salario": document.getElementById("salarioVal").value
+        "salario": $("#salarioVal").val()
     };
 
     $.ajax({
@@ -37,10 +37,11 @@ function agregarEmpleado() {
 
 function modificarEmpleado() {
     var datos = {
-         "nombre" : document.getElementById("nombreModif").value,
-         "mail": document.getElementById("mailModif").value,
+         "nombre" : $("#nombreModif").val(),
+         "mail": $("#mailModif").val(),
+         "id" : seleccionado,
          "tipoEmpleado": $('input[name=tipoEmpleadoModif]:checked').val(),
-         "salario" : document.getElementById("salarioModif").value
+         "salario" : $("#salarioModif").val()
     };
 
     $.ajax({

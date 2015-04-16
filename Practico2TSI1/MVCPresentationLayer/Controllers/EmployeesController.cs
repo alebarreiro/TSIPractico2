@@ -19,6 +19,7 @@ namespace MVCPresentationLayer.Controllers
 
         [Serializable]
         public class DatosAgregarEmpleado{
+            public int id { get; set; }
             public string nombre { get; set; }
             public string mail { get; set; }
             public string tipoEmpleado { get; set; }
@@ -147,6 +148,8 @@ namespace MVCPresentationLayer.Controllers
                     partEmp.StartDate = DateTime.Now;
                     partEmp.Name = nuevoEmpleado.nombre;
                     partEmp.HourlyDate = nuevoEmpleado.salario;
+                    partEmp.Email = nuevoEmpleado.mail;
+                    partEmp.Id = nuevoEmpleado.id;
                     //faltaria la parte del usuario
                     try
                     {
@@ -168,6 +171,8 @@ namespace MVCPresentationLayer.Controllers
                     fullEmp.Name = nuevoEmpleado.nombre;
                     fullEmp.Salary = nuevoEmpleado.salario;
                     fullEmp.StartDate = DateTime.Now;
+                    fullEmp.Email = nuevoEmpleado.mail;
+                    fullEmp.Id = nuevoEmpleado.id;
                     //falta la parte del usuario
                     try
                     {
