@@ -71,11 +71,13 @@ namespace MVCPresentationLayer.Controllers
                     return Json(error);
                 }
                 FormsAuthentication.SetAuthCookie(e.Name, false);
+                ViewBag.LoggedIn = true;
                 return Redirect("~/Employees");
             }
             //return Redirect("~/Employees");
             Dictionary<string, object> valid = new Dictionary<string, object>();
             valid.Add("success", "Valid");
+            ViewBag.LoggedIn = true;
             //return Json(new { success = "Valid" }, JsonRequestBehavior.AllowGet);
             return Json(valid);
         }

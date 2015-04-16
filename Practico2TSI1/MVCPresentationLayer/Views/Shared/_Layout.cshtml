@@ -36,10 +36,22 @@
 
 
 
-    <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Inicio</a></li>
-            <li><a href="/Employees">Empleados</a></li>
-    </ul>
+    @if (ViewBag.LoggedIn)
+    {
+        <ul class="nav nav-tabs">
+            @if (Request.Url.ToString().Contains("Home"))
+            {
+                <li class="active"><a href="/Home">Inicio</a></li>
+                <li><a href="/Employees">Empleados</a></li>
+            }
+            else
+            {
+                <li><a href="/Home">Inicio</a></li>
+                <li class="active"><a href="/Employees">Empleados</a></li>
+            }
+        </ul>
+    }
+    
 
 
 
