@@ -6,10 +6,10 @@ function seleccionar(idEmpleado) {
 
 function agregarEmpleado() {
     var datos = [
-        { "nombre": document.getElementById("nombre").value },
-        { "mail": document.getElementById("mail").value },
-        { "tipoEmpleado": document.getElementById("tipoEmpleado") },
-        { "salario": document.getElementById("salario") }
+        { "nombre": document.getElementById("name").value },
+        { "mail": document.getElementById("email").value },
+        { "tipoEmpleado": document.getElementById("tipoEmpleadoradio").value },
+        { "salario": document.getElementById("salarioVal").value }
     ];
 
     $.ajax({

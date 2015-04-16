@@ -66,22 +66,22 @@ else
                 <h4 class="modal-title">Agregar Empleado</h4>
             </div>
             <div class="modal-body">
-                Mail : <input type="text" class="form-control" id="mail" placeholder="Mail" />
-                Nombre : <input type="text" class="form-control" id="nombre" placeholder="Nombre" />
+                Mail : <input type="text" class="form-control" id="email" placeholder="Mail" />
+                Nombre : <input type="text" class="form-control" id="name" placeholder="Nombre" />
                 Tipo Empleado :
                 <div class="radio">
                     <label>
-                        <input type="radio" name="tipoEmpleado" id="tipoEmpleado" value="partTime" checked>
+                        <input type="radio" name="tipoEmpleado" id="tipoEmpleadoradio" value="partTime" checked>
                         Empleado Part Time
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="tipoEmpleado" id="tipoEmpleado" value="fullTime">
+                        <input type="radio" name="tipoEmpleado" id="tipoEmpleadoradio" value="fullTime">
                         Empleado Full Time
                     </label>
                 </div>
-                Salario (por hora en el caso de empleado part time): <input type="text" class="form-control" id="salario" placeholder="Salario" />
+                Salario (por hora en el caso de empleado part time): <input type="text" class="form-control" id="salarioVal" placeholder="Salario" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="agregarEmpleado()">Agregar Empleado</button>
