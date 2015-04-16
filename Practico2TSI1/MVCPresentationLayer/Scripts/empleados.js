@@ -57,7 +57,12 @@ function modificarEmpleado() {
 
 function respuestaModificarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Se ha modificado al Empleado correctamente";
+    $("#modificarEmpleado").modal("hide");
     $("#notificaciones").modal();
+    setTimeout(function () {
+        $("#notificaciones").modal("hide");
+        document.location.reload();
+    }, 2000);
 }
 
 function errorModificarEmpleado() {
@@ -67,7 +72,12 @@ function errorModificarEmpleado() {
 
 function respuestaAgregarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Se ha agregado al Empleado correctamente";
+    $("#agregarEmpleado").modal("hide");
     $("#notificaciones").modal();
+    setTimeout(function () {
+        $("#notificaciones").modal("hide");
+        document.location.reload();
+    }, 2000);
 }
 
 function errorAgregarEmpleado() {
@@ -113,7 +123,12 @@ function borrarEmpleado() {
 
 function respuestaBorrarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Se ha borrado al Empleado correctamente";
+    $("#borrarEmpleado").modal("hide");
     $("#notificaciones").modal();
+    setTimeout(function () {
+        $("#notificaciones").modal("hide");
+        document.location.reload();
+    }, 2000);
 }
 
 function errorBorrarEmpleado() {
@@ -164,7 +179,7 @@ function chequearSeleccionSalario() {
                 if (response.partTime) {
                     console.log(response.hourlyRate);
                     partTimeSeleccionado = response.hourlyRate;
-                    $("#resultadoPartTime").hide();
+                    $("#resultadoPartTime").modal("hide");
                     document.getElementById("horas").value = "";
                     $("#CalcPartTime").modal();
                 }
