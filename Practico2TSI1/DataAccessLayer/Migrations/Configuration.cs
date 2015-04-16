@@ -9,7 +9,7 @@ namespace DataAccessLayer.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "DataAccessLayer.EmployeesEFContext";
         }
 

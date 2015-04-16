@@ -33,6 +33,7 @@ namespace DataAccessLayer
                     m.Property(p => p.Salary).HasColumnName("SALARY");
                     m.Property(p => p.Email).HasColumnName("EMAIL");
                     m.Property(p => p.Password).HasColumnName("PASSWORD");
+                    m.Property(p => p.FirstLogin).HasColumnName("FIRST_LOGIN");
                 });
 
             modelBuilder.Entity<PartTimeEmployee>().Map(m =>
@@ -45,6 +46,8 @@ namespace DataAccessLayer
                     m.Property(p => p.HourlyDate).HasColumnName("RATE");
                     m.Property(p => p.Email).HasColumnName("EMAIL");
                     m.Property(p => p.Password).HasColumnName("PASSWORD");
+                    m.Property(p => p.FirstLogin).HasColumnName("FIRST_LOGIN");
+
                 });
         }
     }
@@ -68,6 +71,7 @@ namespace DataAccessLayer
     {
         public void AddEmployee(Employee emp)
         {
+            Debug.WriteLine("DAL:entra add");
             using (var context = new EmployeesEFContext())
             {
                 try
@@ -83,9 +87,11 @@ namespace DataAccessLayer
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Debug.WriteLine("Error:"+e.Message);
                 }
             }
+            Debug.WriteLine("DAL:fin add");
+
         }
 
         public void DeleteEmployee(int id)
@@ -156,7 +162,7 @@ namespace DataAccessLayer
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    return null;
+                    return new List<Employee>();
                 }
             }
         }
@@ -195,7 +201,7 @@ namespace DataAccessLayer
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    return null;
+                    return new List<Employee>();
                 }
             }
         }
@@ -216,7 +222,7 @@ namespace DataAccessLayer
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Debug.WriteLine(e.Message);
                     return null;
                 }
             }

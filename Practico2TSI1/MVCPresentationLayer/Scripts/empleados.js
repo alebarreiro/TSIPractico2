@@ -1,90 +1,75 @@
-﻿var seleccionado = -1;
+﻿var seleccionado = -1,
+    partTimeSeleccionado;
 
 function seleccionar(idEmpleado) {
+    var rowEmpleado;
     if (seleccionado != -1) {
-        $("#" + seleccionado).removeClass("seleccionado");
+        rowEmpleado = ".row-empleado-" + seleccionado;
+        $(rowEmpleado).css({ "background-color": "transparent" });
+    } else if (seleccionado == idEmpleado) {
+        seleccionado = -1;
+        rowEmpleado = ".row-empleado-" + seleccionado;
+        $(rowEmpleado).css({ "background-color": "transparent" });
     }
-    $("#" + idEmpleado).removeClass("table-hover");
-    $("#" + idEmpleado).addClass("seleccionado");
     seleccionado = idEmpleado;
+    rowEmpleado = ".row-empleado-" + idEmpleado;
+    $(rowEmpleado).css({"background-color" : "#dff0d8"});
 }
 
 function agregarEmpleado() {
-    var datos = 
-        {   nombre : $("#nombre").val() ,
-            mail : $("#mail").val() ,
-            password : $("#pass").val(),
-            tipoEmpleado : $("#tipoEmpleado").val() ,
-            salario : $("#salario").val()
-        };
-    //var parametros = "nombre=" + document.getElementById("nombre").value
-    //        + "&mail=" + document.getElementById("mail").value
-    //        + "&password=" + document.getElementById("pass").value
-    //        + "&tipoEmpleado=" + document.getElementById("tipoEmpleado").value
-    //        + "&salario=" + document.getElementById("salario").value;
+    var datos = {
+        "nombre": document.getElementById("name").value,
+        "mail": document.getElementById("email").value ,
+        "tipoEmpleado": $('input[name=tipoEmpleado]:checked').val(),
+        "salario": document.getElementById("salarioVal").value
+    };
 
     $.ajax({
         type: "POST",
         url: "/Employees/AgregarEmpleado",
         data: JSON.stringify(datos),
-        async : true,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: respuestaAgregarEmpleado,
         error: errorAgregarEmpleado
     });
-    $("#agregarEmpleado").modal("hide");
 }
 
 function modificarEmpleado() {
-    var datos =
-        {
-            nombre: $("#nombreModif").val(),
-            mail: $("#mailModif").val(),
-            //password: $("#passModif").val(),
-            tipoEmpleado: $("#tipoEmpleadoModif").val(),
-            salario: $("#salarioModif").val()
-        };
+    var datos = {
+         "nombre" : document.getElementById("nombreModif").value,
+         "mail": document.getElementById("mailModif").value,
+         "tipoEmpleado": $('input[name=tipoEmpleadoModif]:checked').val(),
+         "salario" : document.getElementById("salarioModif").value
+    };
 
     $.ajax({
         type: "POST",
-        url: "~/Employees/ModificarEmpleado",
+        url: "/Employees/ModificarEmpleado",
         data: JSON.stringify(datos),
-        async: true,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: respuestaModificarEmpleado,
         error: errorModificarEmpleado
     });
-    $("#modificarEmpleado").modal("hide");
 }
 
-function respuestaModificarEmpleado(jqXHR, textStatus, errorThrown) {
+function respuestaModificarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Se ha modificado al Empleado correctamente";
-    $("#cerrarNotificaciones").hide();
     $("#notificaciones").modal();
-    setTimeout(function (){
-            $("#notificaciones").modal("hide");
-            location.reload();
-    }, 2000);
 }
 
-function errorModificarEmpleado(jqXHR, textStatus, errorThrown) {
+function errorModificarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Error al modificar al Empleado";
     $("#notificaciones").modal();
 }
 
-function respuestaAgregarEmpleado(jqXHR, textStatus, errorThrown) {
+function respuestaAgregarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Se ha agregado al Empleado correctamente";
-    $("#cerrarNotificaciones").hide();
     $("#notificaciones").modal();
-    setTimeout(function () {
-        $("#notificaciones").modal("hide");
-        location.reload();
-    }, 2000);
 }
 
-function errorAgregarEmpleado(jqXHR, textStatus, errorThrown) {
+function errorAgregarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Error al agregar al Empleado";
     $("#notificaciones").modal();
 }
@@ -110,33 +95,94 @@ function chequearSeleccionBorrar() {
 }
 
 function borrarEmpleado() {
-    var datos = 
-        { idEmpleado : seleccionado };
+    var datos = {
+         "idEmpleado" : seleccionado 
+    };
 
     $.ajax({
         type: "POST",
-        url: "~/Employees/BorrarEmpleado",
+        url: "/Employees/BorrarEmpleado",
         data: JSON.stringify(datos),
-        async : true,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: respuestaBorrarEmpleado,
         error: errorBorrarEmpleado
     });
-    $("#borrarEmpleado").modal("hide");
 }
 
-function respuestaBorrarEmpleado(jqXHR, textStatus, errorThrown) {
+function respuestaBorrarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Se ha borrado al Empleado correctamente";
-    $("#cerrarNotificaciones").hide();
     $("#notificaciones").modal();
-    setTimeout(function () {
-        $("#notificaciones").modal("hide");
-        location.reload();
-    }, 2000);
 }
 
-function errorBorrarEmpleado(jqXHR, textStatus, errorThrown) {
+function errorBorrarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Error al borrar al Empleado";
     $("#notificaciones").modal();
+}
+
+function Login() {
+    var datos = {
+        "mail": document.getElementById("user").value,
+        "password": document.getElementById("pass").value
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Account/Login",
+        data: JSON.stringify(datos),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            //var pd = $.parseJSON(data);
+            if (parseInt(data["ErrorCode"]) == -1) {
+                //usuario o pass incorrecto
+                alert(data["ErrorMessage"]);
+            } else if (data["success"] == "Valid") {
+                // window.location.replace("~/");
+                location.reload();
+            }
+            
+        },
+        error: function (data) {
+
+        }
+    });
+
+    var datos2 ={
+                    
+                };
+}
+
+function chequearSeleccionSalario() {
+    if (seleccionado != -1) {
+        console.log(seleccionado);
+        $.ajax({
+            type: "GET",
+            url: "/Employees/CalcPartTime/"+ seleccionado,
+            success: function(response) {
+                if (response.partTime) {
+                    console.log(response.hourlyRate);
+                    partTimeSeleccionado = response.hourlyRate;
+                    $("#resultadoPartTime").hide();
+                    document.getElementById("horas").value = "";
+                    $("#CalcPartTime").modal();
+                }
+                else {
+                    document.getElementById("bodyNotificaciones").innerHTML = "El empleado seleccionado no es Part Time";
+                    $("#notificaciones").modal();
+                }
+            },
+            error: function (error) {
+                document.getElementById("bodyNotificaciones").innerHTML = "No se pudo recuperar el empleado.";
+                $("#notificaciones").modal();
+            }
+        });
+    }
+}
+
+function calcularSalario() {
+    var horasTrabajadas = document.getElementById("horas").value;
+    var salario = horasTrabajadas * partTimeSeleccionado;
+    $("#resultadoPartTime").html("Salario: " + salario);
+    $("#resultadoPartTime").show();
 }

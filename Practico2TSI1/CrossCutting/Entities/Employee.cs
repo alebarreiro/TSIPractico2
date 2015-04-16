@@ -8,10 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Entities
 {
-    public enum Roles{
-        ADMIN,
-        USER
-    }
+
     public abstract class Employee
     {
         //[Column("ID"), DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -28,6 +25,9 @@ namespace Shared.Entities
 
         [Column("PASSWORD")]
         public string Password { get; set; }
+
+        [Column("FIRST_LOGIN")]
+        public bool FirstLogin { get; set; }
 
         public override string ToString()
         {

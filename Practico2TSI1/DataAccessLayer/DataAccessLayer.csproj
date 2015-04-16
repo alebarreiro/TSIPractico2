@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201504140123142_AddEmailPassword.Designer.cs">
       <DependentUpon>201504140123142_AddEmailPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504160319484_FirstTime.cs" />
+    <Compile Include="Migrations\201504160319484_FirstTime.Designer.cs">
+      <DependentUpon>201504160319484_FirstTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transformers\AbstractJsonConverter.cs" />
@@ -88,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504140123142_AddEmailPassword.resx">
       <DependentUpon>201504140123142_AddEmailPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504160319484_FirstTime.resx">
+      <DependentUpon>201504160319484_FirstTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
