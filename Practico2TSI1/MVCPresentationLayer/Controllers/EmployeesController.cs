@@ -57,20 +57,23 @@ namespace MVCPresentationLayer.Controllers
         [HttpPost]
         public ActionResult AgregarEmpleado(DatosAgregarEmpleado nuevoEmpleado)
         {
-            Debug.WriteLine(nuevoEmpleado.mail);
-            Debug.WriteLine(nuevoEmpleado.nombre);
-            Debug.WriteLine(nuevoEmpleado.salario);
-            Debug.WriteLine(nuevoEmpleado.mail);
 
             if (Request.IsAjaxRequest())
             {
                 if (nuevoEmpleado.tipoEmpleado.Equals("partTime"))
                 {
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    var random = new Random();
+                    var pass = new string(Enumerable.Repeat(chars, 6)
+                                  .Select(s => s[random.Next(s.Length)])
+                                  .ToArray());
                     PartTimeEmployee partEmp = new PartTimeEmployee();
                     partEmp.StartDate = DateTime.Now;
                     partEmp.Name = nuevoEmpleado.nombre;
                     partEmp.HourlyDate = nuevoEmpleado.salario;
                     partEmp.FirstLogin = true;
+                    partEmp.Password = pass;
+                    partEmp.Email = nuevoEmpleado.mail;
                     //faltaria la parte del usuario
                     IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                     try
@@ -80,7 +83,6 @@ namespace MVCPresentationLayer.Controllers
                     catch (Exception e)
                     {
                         //devolver error json
-                        Debug.WriteLine("ERROR!");
                         Dictionary<string, object> error = new Dictionary<string, object>();
                         error.Add("ErrorCode", -1);
                         error.Add("ErrorMessage", "Something really bad happened");
@@ -90,11 +92,18 @@ namespace MVCPresentationLayer.Controllers
                 }
                 else if (nuevoEmpleado.tipoEmpleado.Equals("fullTime"))
                 {
+                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    var random = new Random();
+                    var pass = new string(Enumerable.Repeat(chars, 6)
+                                  .Select(s => s[random.Next(s.Length)])
+                                  .ToArray());
                     FullTimeEmployee fullEmp = new FullTimeEmployee();
                     fullEmp.Name = nuevoEmpleado.nombre;
                     fullEmp.Salary = nuevoEmpleado.salario;
                     fullEmp.StartDate = DateTime.Now;
                     fullEmp.FirstLogin = true;
+                    fullEmp.Password = pass;
+                    fullEmp.Email = nuevoEmpleado.mail;
                     //falta la parte del usuario
                     IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                     try

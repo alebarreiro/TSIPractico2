@@ -107,3 +107,35 @@ function errorBorrarEmpleado() {
     document.getElementById("bodyNotificaciones").innerHTML = "Error al borrar al Empleado";
     $("#notificaciones").modal();
 }
+
+function Login() {
+    var datos = {
+        "mail": document.getElementById("user").value,
+        "password": document.getElementById("pass").value
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/Account/Login",
+        data: JSON.stringify(datos),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            //var pd = $.parseJSON(data);
+            alert("asd");
+            if (parseInt(data["ErrorCode"]) == -1) {
+                //usuario o pass incorrecto
+            } else if (data["success"] == "Valid") {
+                alert(data["ErrorMessage"]);
+            }
+            
+        },
+        error: function (data) {
+
+        }
+    });
+
+    var datos2 ={
+                    
+                };
+}

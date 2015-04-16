@@ -11,10 +11,21 @@ using Microsoft.Owin.Security;
 using MVCPresentationLayer.Models;
 using DataAccessLayer;
 using Shared.Entities;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Web.Security;
 
 namespace MVCPresentationLayer.Controllers
 {
-    [Authorize]
+    [Serializable]
+    public class LogForm
+    {
+        public string mail { get; set; }
+        public string password { get; set; }
+    }
+
+
+   // [Authorize]
     public class AccountController : Controller
     {
         private IDALEmployees dal = new DALEmployeesEF();
@@ -34,28 +45,67 @@ namespace MVCPresentationLayer.Controllers
         //
         // POST: /Account/Login
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+     //   [AllowAnonymous]
+      //  [ValidateAntiForgeryToken]
+        public ActionResult Login(LogForm model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
 
-            Employee e = dal.GetEmployeeByEmail(model.Email);
-            if (e.Password.Equals(model.Password))
+            if (Request.IsAjaxRequest())
             {
-                return RedirectToLocal("~/Employees");
+                Employee e = dal.GetEmployeeByEmail(model.mail);
+
+                if (e == null||!e.Password.Equals(model.password))
+                {
+                    //devolver error json
+                    Dictionary<string, object> error = new Dictionary<string, object>();
+                    error.Add("ErrorCode", -1);
+                    error.Add("ErrorMessage", "Usuario o contraseña invalidos.");
+                    return Json(error);
+                }
+                FormsAuthentication.SetAuthCookie(e.Name, false);
+                return Redirect("~/Employees");
             }
-            else
-            {
-                ModelState.AddModelError("", "Invalid login attempt.");
-                return View(model);
-            }
+            return Redirect("~/Employees");
+            return Json(new { success = "Valid" }, JsonRequestBehavior.AllowGet);
            
         }
 
+
+
+        public ActionResult UpdatePassword(LogForm model)
+        {
+
+            if (Request.IsAjaxRequest())
+            {
+                Employee e = dal.GetEmployeeByEmail(model.mail);
+                e.Password = model.password;
+                try
+                {
+                    dal.UpdateEmployee(e);
+                }
+                catch (Exception E)
+                {
+                    //devolver error json
+                    Dictionary<string, object> error = new Dictionary<string, object>();
+                    error.Add("ErrorCode", -1);
+                    error.Add("ErrorMessage", "No se pudo actualizar contraseña");
+                    return Json(error);
+                }
+
+
+                return Json(new { success = "Valid" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //devolver error json
+                Dictionary<string, object> error = new Dictionary<string, object>();
+                error.Add("ErrorCode", -1);
+                error.Add("ErrorMessage", "Something really bad happened");
+                return Json(error);
+            }
+            
+
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins
