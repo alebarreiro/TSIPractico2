@@ -1,7 +1,19 @@
-﻿var seleccionado = -1;
+﻿var seleccionado = -1,
+    partTimeSeleccionado;
 
 function seleccionar(idEmpleado) {
+    var rowEmpleado;
+    if (seleccionado != -1) {
+        rowEmpleado = ".row-empleado-" + seleccionado;
+        $(rowEmpleado).css({ "background-color": "transparent" });
+    } else if (seleccionado == idEmpleado) {
+        seleccionado = -1;
+        rowEmpleado = ".row-empleado-" + seleccionado;
+        $(rowEmpleado).css({ "background-color": "transparent" });
+    }
     seleccionado = idEmpleado;
+    rowEmpleado = ".row-empleado-" + idEmpleado;
+    $(rowEmpleado).css({"background-color" : "#dff0d8"});
 }
 
 function agregarEmpleado() {
@@ -138,4 +150,38 @@ function Login() {
     var datos2 ={
                     
                 };
+}
+
+function chequearSeleccionSalario() {
+    if (seleccionado != -1) {
+        console.log(seleccionado);
+        $.ajax({
+            type: "GET",
+            url: "/Employees/CalcPartTime/"+ seleccionado,
+            success: function(response) {
+                if (response.partTime) {
+                    console.log(response.hourlyRate);
+                    partTimeSeleccionado = response.hourlyRate;
+                    $("#resultadoPartTime").hide();
+                    document.getElementById("horas").value = "";
+                    $("#CalcPartTime").modal();
+                }
+                else {
+                    document.getElementById("bodyNotificaciones").innerHTML = "El empleado seleccionado no es Part Time";
+                    $("#notificaciones").modal();
+                }
+            },
+            error: function (error) {
+                document.getElementById("bodyNotificaciones").innerHTML = "No se pudo recuperar el empleado.";
+                $("#notificaciones").modal();
+            }
+        });
+    }
+}
+
+function calcularSalario() {
+    var horasTrabajadas = document.getElementById("horas").value;
+    var salario = horasTrabajadas * partTimeSeleccionado;
+    $("#resultadoPartTime").html("Salario: " + salario);
+    $("#resultadoPartTime").show();
 }
