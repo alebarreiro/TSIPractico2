@@ -28,7 +28,7 @@ namespace MVCPresentationLayer.Controllers
    // [Authorize]
     public class AccountController : Controller
     {
-        private IDALEmployees dal = new DALEmployeesEF();
+        private IDALEmployees dal = new DALEmployeesREST();
         public AccountController()
         {
         }
@@ -52,10 +52,18 @@ namespace MVCPresentationLayer.Controllers
 
             if (Request.IsAjaxRequest())
             {
+                Debug.WriteLine("MVCLAYER:");
                 Employee e = dal.GetEmployeeByEmail(model.mail);
+
+                if (e != null)
+                {
+                    Debug.WriteLine(e.Email);
+                    Debug.WriteLine(e.Password);
+                }
 
                 if (e == null||!e.Password.Equals(model.password))
                 {
+
                     //devolver error json
                     Dictionary<string, object> error = new Dictionary<string, object>();
                     error.Add("ErrorCode", -1);
@@ -65,9 +73,11 @@ namespace MVCPresentationLayer.Controllers
                 FormsAuthentication.SetAuthCookie(e.Name, false);
                 return Redirect("~/Employees");
             }
-            return Redirect("~/Employees");
-            return Json(new { success = "Valid" }, JsonRequestBehavior.AllowGet);
-           
+            //return Redirect("~/Employees");
+            Dictionary<string, object> valid = new Dictionary<string, object>();
+            valid.Add("success", "Valid");
+            //return Json(new { success = "Valid" }, JsonRequestBehavior.AllowGet);
+            return Json(valid);
         }
 
 
