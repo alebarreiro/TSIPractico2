@@ -222,7 +222,7 @@ namespace DataAccessLayer
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Debug.WriteLine(e.Message);
                     return null;
                 }
             }

@@ -15,6 +15,8 @@ namespace MVCPresentationLayer.Controllers
 {
     public class EmployeesController : Controller
     {
+        private IBLEmployees ibl = new BLEmployees(new DALEmployeesREST());
+
         [Serializable]
         public class DatosAgregarEmpleado{
             public string nombre { get; set; }
@@ -31,7 +33,6 @@ namespace MVCPresentationLayer.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            IBLEmployees ibl = new BLEmployees(new DALEmployeesEF());
             List<Employee> empleados = ibl.GetAllEmployees();
             ViewBag.Empleados = empleados;
             ViewBag.Pagina = "Empleados";
@@ -75,10 +76,10 @@ namespace MVCPresentationLayer.Controllers
                     partEmp.Password = pass;
                     partEmp.Email = nuevoEmpleado.mail;
                     //faltaria la parte del usuario
-                    IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
+                   
                     try
                     {
-                        bl.AddEmployee(partEmp);
+                        ibl.AddEmployee(partEmp);
                     }
                     catch (Exception e)
                     {
@@ -105,10 +106,10 @@ namespace MVCPresentationLayer.Controllers
                     fullEmp.Password = pass;
                     fullEmp.Email = nuevoEmpleado.mail;
                     //falta la parte del usuario
-                    IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
+                    
                     try
                     {
-                        bl.AddEmployee(fullEmp);
+                        ibl.AddEmployee(fullEmp);
                     }
                     catch (Exception e)
                     {
@@ -147,10 +148,9 @@ namespace MVCPresentationLayer.Controllers
                     partEmp.Name = nuevoEmpleado.nombre;
                     partEmp.HourlyDate = nuevoEmpleado.salario;
                     //faltaria la parte del usuario
-                    IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                     try
                     {
-                        bl.UpdateEmployee(partEmp);
+                        ibl.UpdateEmployee(partEmp);
                     }
                     catch (Exception e)
                     {
@@ -169,10 +169,9 @@ namespace MVCPresentationLayer.Controllers
                     fullEmp.Salary = nuevoEmpleado.salario;
                     fullEmp.StartDate = DateTime.Now;
                     //falta la parte del usuario
-                    IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                     try
                     {
-                        bl.UpdateEmployee(fullEmp);
+                        ibl.UpdateEmployee(fullEmp);
                     }
                     catch (Exception e)
                     {
@@ -204,10 +203,9 @@ namespace MVCPresentationLayer.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-                IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
                 try
                 {
-                    bl.DeleteEmployee(empBorrar.idEmpleado);
+                    ibl.DeleteEmployee(empBorrar.idEmpleado);
                     return Json(new { success = "Valid" }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)

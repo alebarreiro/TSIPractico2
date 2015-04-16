@@ -53,15 +53,4 @@
     </div>
 </div>
 
-@section scripts {
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.chatbox.js")"></script>
-
-}
-
-@if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
-{   
-    @Scripts.Render("~/bundles/chat");
-}

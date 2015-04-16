@@ -31,6 +31,7 @@ namespace RESTAPI.Controllers
         public List<Employee> Get()
         {
             List<Employee> list = blHandler.GetAllEmployees();
+            Debug.WriteLine("RESTAPI::EMPLEADOS:");
             foreach (var e in list)
             {
                 Debug.WriteLine(e.Id);
@@ -53,6 +54,7 @@ namespace RESTAPI.Controllers
         }
 
         // GET api/employees/5
+        [Route("~/api/employees/mail/{email}")]
         public Employee Get(string email)
         {
             try

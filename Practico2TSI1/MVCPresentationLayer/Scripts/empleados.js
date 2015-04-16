@@ -122,11 +122,12 @@ function Login() {
         dataType: "json",
         success: function (data) {
             //var pd = $.parseJSON(data);
-            alert("asd");
             if (parseInt(data["ErrorCode"]) == -1) {
                 //usuario o pass incorrecto
-            } else if (data["success"] == "Valid") {
                 alert(data["ErrorMessage"]);
+            } else if (data["success"] == "Valid") {
+                // window.location.replace("~/");
+                location.reload();
             }
             
         },

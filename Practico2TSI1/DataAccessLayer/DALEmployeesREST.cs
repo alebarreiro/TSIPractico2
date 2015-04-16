@@ -23,6 +23,7 @@ namespace DataAccessLayer
         public DALEmployeesREST()
         {
             RESTURL = ConfigurationManager.AppSettings["RESTURL"];
+            Debug.WriteLine("DALREST:"+RESTURL);
             client = new RestClient(RESTURL);
         }
 
@@ -74,7 +75,8 @@ namespace DataAccessLayer
             var response = client.Execute<List<string>>(request);
             var converter = new EmployeeConverter();
             List<Employee> list = new List<Employee>();
-
+            Debug.WriteLine("DALREST:");
+            Debug.WriteLine(response.Content);
 
             foreach (var e in response.Data)
             {
@@ -131,12 +133,12 @@ namespace DataAccessLayer
 
         public Employee GetEmployeeByEmail(string email)
         {
-            var request = new RestRequest("api/employees/{email}", Method.GET);
+            var request = new RestRequest("api/employees/mail/{email}", Method.GET);
             request.AddUrlSegment("email", email);
             request.RequestFormat = DataFormat.Json;
 
             var response = client.Execute(request);
-            Debug.WriteLine(response.Content);
+            Debug.WriteLine("DALREST:"+email+response.Content);
             Employee e = null;
 
             var converter = new EmployeeConverter();
