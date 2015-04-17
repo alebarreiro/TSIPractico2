@@ -138,8 +138,8 @@ function errorBorrarEmpleado() {
 
 function Login() {
     var datos = {
-        "mail": document.getElementById("user").value,
-        "password": document.getElementById("pass").value
+        "mail": $("#mail").val(),
+        "password": $("#pass").val()
     };
 
     $.ajax({
@@ -163,10 +163,6 @@ function Login() {
 
         }
     });
-
-    var datos2 ={
-                    
-                };
 }
 
 function chequearSeleccionSalario() {
