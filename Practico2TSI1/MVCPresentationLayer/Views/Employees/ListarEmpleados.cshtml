@@ -1,11 +1,13 @@
 ﻿@using Shared.Entities
+@if (Request.IsAuthenticated) { 
+    
 <div style="margin-top : 5%;">
     <input type="button" class="btn btn-primary" value="Agregar Empleado" data-toggle="modal" data-target="#agregarEmpleado"  /> @*onclick="$('#agregarEmpleado').modal();"*@
     <input type="button" class="btn btn-primary" value="Calcular Salario" onclick="chequearSeleccionSalario();" />
     <input type="button" class="btn btn-success" value="Modificar Empleado" onclick="chequearSeleccionModificar();" />
     <input type="button" class="btn btn-danger" value="Borrar Empleado" onclick="chequearSeleccionBorrar();" />
 </div>
-@if(ViewBag.HayEmpleados)
+if(ViewBag.HayEmpleados)
 {
     <table class="table">
         <tr>
@@ -221,3 +223,5 @@ else
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+    
+}
