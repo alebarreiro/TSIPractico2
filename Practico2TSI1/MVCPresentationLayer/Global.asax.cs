@@ -22,8 +22,8 @@ namespace MVCPresentationLayer
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             
             //start chat
-            IBLEmployees ibl = new BLEmployees(new DALEmployeesEF());
-            ibl.InitChat();
+            //IBLEmployees ibl = new BLEmployees(new DALEmployeesREST());
+            //ibl.InitChat();
 
         }
     }

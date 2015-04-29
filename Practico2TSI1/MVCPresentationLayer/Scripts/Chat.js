@@ -1,7 +1,7 @@
 ﻿//WebSocket implementation
 
 var WebSocket = WebSocket || MozWebSocket;
-var myWS = new WebSocket("ws://localhost:8181");
+var myWS = new WebSocket("ws://mvcemployees.azurewebsites.net/");
 
 myWS.onopen = function (evt) {
     myWS.send(user);

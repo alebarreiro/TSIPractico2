@@ -192,7 +192,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bower.json" />
+    <Content Include="Scripts\Chat.js" />
     <Content Include="Scripts\composer.json" />
+    <None Include="Properties\PublishProfiles\mvcemployees.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\empleados.js" />
     <Content Include="Scripts\Gruntfile.js" />

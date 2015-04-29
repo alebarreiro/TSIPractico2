@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Fleck;
+using System.Net;
 
 namespace BusinessLogicLayer
 {
@@ -13,7 +14,8 @@ namespace BusinessLogicLayer
         private static Dictionary<IWebSocketConnection, string> connections = new Dictionary<IWebSocketConnection, string>();
         public WebsocketChat()
         {
-            var server = new WebSocketServer("ws://0.0.0.0:8181");
+            var server = new WebSocketServer("ws://mvcemployees.azurewebsites.net/");
+            //"ws://mvcemployees.azurewebsites.net:8181"
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
