@@ -234,7 +234,7 @@ namespace MVCPresentationLayer.Controllers
         [HttpGet]
         public ActionResult CalcPartTime(int id)
         {
-            IBLEmployees bl = new BLEmployees(new DALEmployeesEF());
+            IBLEmployees bl = new BLEmployees(new DALEmployeesREST());
             Employee e = bl.GetEmployee(id);
             if (e != null)
             {

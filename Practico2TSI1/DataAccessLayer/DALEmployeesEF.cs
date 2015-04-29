@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace DataAccessLayer
 {
@@ -15,7 +16,11 @@ namespace DataAccessLayer
         public EmployeesEFContext()
            // : base("name=Employees")
         {
+            string con = ConfigurationManager.ConnectionStrings["ChebayDBContext"].ToString();
+            base.Database.Connection.ConnectionString = con;
             var ddlcopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+            Debug.WriteLine(con);
+        
         }
 
         public DbSet<Employee> Employees { get; set; }

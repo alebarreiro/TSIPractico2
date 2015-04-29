@@ -1,6 +1,6 @@
 ﻿@using Shared.Entities
 <div style="margin-top : 5%;">
-    <input type="button" class="btn btn-primary" value="Agregar Empleado" onclick="$('#agregarEmpleado').modal();" />
+    <input type="button" class="btn btn-primary" value="Agregar Empleado" data-toggle="modal" data-target="#agregarEmpleado"  /> @*onclick="$('#agregarEmpleado').modal();"*@
     <input type="button" class="btn btn-primary" value="Calcular Salario" onclick="chequearSeleccionSalario();" />
     <input type="button" class="btn btn-success" value="Modificar Empleado" onclick="chequearSeleccionModificar();" />
     <input type="button" class="btn btn-danger" value="Borrar Empleado" onclick="chequearSeleccionBorrar();" />
@@ -58,7 +58,7 @@ else
     </div>
 }
 
-<div class="modal fade" id="agregarEmpleado">
+@*<div class="modal fade" id="agregarEmpleado">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -180,6 +180,26 @@ else
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+    *@
+
+
+<div class="modal fade" id="notificaciones">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:white">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="bodyNotificaciones" style="background-color:whitesmoke">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
 
 <div class="modal fade" id="CalcPartTime">
     <div class="modal-dialog">

@@ -149,21 +149,32 @@ function Login() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            //var pd = $.parseJSON(data);
-            if (parseInt(data["ErrorCode"]) == -1) {
-                //usuario o pass incorrecto
-                alert(data["ErrorMessage"]);
-            } else if (data["success"] == "Valid") {
-                // window.location.replace("~/");
-                location.reload();
-            }
-            
+                respuestaLoginFail();     
         },
         error: function (data) {
-
+            document.location.reload();
         }
     });
 }
+
+function respuestaLoginFail() {
+    document.getElementById("bodyNotificaciones").innerHTML = "Usuario o contraseña incorrectos";
+    $("#Login").modal("hide");
+    $("#notificaciones").modal();
+    setTimeout(function () {
+        $("#notificaciones").modal("hide");
+        $("#Login").modal();
+        //document.location.reload();
+    }, 2000);
+}
+
+function respuestaLoginOk() {
+    $("#Login").modal("hide");
+    setTimeout(function () {
+        document.location.reload();
+    }, 1000);
+}
+
 
 function chequearSeleccionSalario() {
     if (seleccionado != -1) {
@@ -197,4 +208,19 @@ function calcularSalario() {
     var salario = horasTrabajadas * partTimeSeleccionado;
     $("#resultadoPartTime").html("Salario: " + salario);
     $("#resultadoPartTime").show();
+}
+
+function Logout() {
+    $.ajax({
+        type: "POST",
+        url: "/Account/Logout",
+        success: function () {
+            setTimeout(function () {
+                document.location.reload();
+            }, 1000);
+        },
+        error: function (error) {
+        }
+    });
+
 }

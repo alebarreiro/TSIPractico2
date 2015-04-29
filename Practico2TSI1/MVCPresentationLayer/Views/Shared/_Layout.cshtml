@@ -21,13 +21,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Employees App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -36,8 +36,7 @@
 
 
 
-    @if (ViewBag.LoggedIn)
-    {
+  
         <ul class="nav nav-tabs">
             @if (Request.Url.ToString().Contains("Home"))
             {
@@ -50,10 +49,159 @@
                 <li class="active"><a href="/Employees">Empleados</a></li>
             }
         </ul>
-    }
+    
     
 
 
+    <div class="modal fade" id="Login">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    Mail : <input type="text" class="form-control" id="mail" placeholder="Mail" />
+                    Nombre : <input type="password" class="form-control" id="pass" placeholder="Password" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="Login()">Login</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" id="notificaciones">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color:white">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" id="bodyNotificaciones" style="background-color:whitesmoke">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="agregarEmpleado">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Agregar Empleado</h4>
+                </div>
+                <div class="modal-body">
+                    Mail : <input type="text" class="form-control" id="email" placeholder="Mail" />
+                    Nombre : <input type="text" class="form-control" id="name" placeholder="Nombre" />
+                    Tipo Empleado :
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="tipoEmpleado" id="tipoEmpleadorr1" value="partTime" checked>
+                            Empleado Part Time
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="tipoEmpleado" id="tipoEmpleadorr2" value="fullTime">
+                            Empleado Full Time
+                        </label>
+                    </div>
+                    Salario (por hora en el caso de empleado part time): <input type="text" class="form-control" id="salarioVal" placeholder="Salario" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="agregarEmpleado()">Agregar Empleado</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="modificarEmpleado">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modificar Empleado</h4>
+                </div>
+                <div class="modal-body">
+                    Mail : <input type="text" class="form-control" id="mailModif" placeholder="Mail" />
+                    Nombre : <input type="text" class="form-control" id="nombreModif" placeholder="Nombre" />
+                    Tipo Empleado :
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="tipoEmpleadoModif" id="tipoEmpleadoModif" value="partTime" checked>
+                            Empleado Part Time
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="tipoEmpleadoModif" id="tipoEmpleadoModif2" value="fullTime">
+                            Empleado Full Time
+                        </label>
+                    </div>
+                    Salario (por hora en el caso de empleado part time): <input type="text" class="form-control" id="salarioModif" placeholder="Salario" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="modificarEmpleado()">Modificar Empleado</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="borrarEmpleado">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Borrar Empleado</h4>
+                </div>
+                <div class="modal-body">
+                    Está seguro que desea borrar el empleado seleccionado?
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="borrarEmpleado()">Si</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" id="CalcPartTime">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Calcular salario empleado Part Time</h4>
+                </div>
+                <div class="modal-body">
+                    Horas trabajadas : <input type="text" class="form-control" id="horas" placeholder="Ingrese cantidad de horas" />
+                </div>
+                <div class="modal-body" id="resultadoPartTime" style="display:none">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="calcularSalario()">Calcular</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <div class="container body-content">
         @RenderBody()
@@ -84,6 +232,9 @@
 
     @if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
     {
+        <script>
+            var user = "@HttpContext.Current.User.Identity.Name";
+        </script>
         @Scripts.Render("~/bundles/chat");
     }
 

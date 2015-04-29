@@ -24,7 +24,7 @@ namespace PresentationLayerConsole
                                     };
         
         static string[] Usage = {
-                                 "","","<Name> <StartDate> <Salary>", "<Name> <StartDate> <HourlyDate>",
+                                 "","","<Name> <StartDate> <Salary> <Email> <Password>", "<Name> <StartDate> <HourlyDate>",
                                  "<Id>", "<Id> <Name> <StartDate> <Salary|HourlyDate>", "",
                                  "<Id>", "<Sentence>", "<Id> <Hours>",
                                  "<email>"
@@ -79,6 +79,8 @@ namespace PresentationLayerConsole
                                 fte.Name = parameters[1];
                                 fte.StartDate = Convert.ToDateTime(parameters[2]);
                                 fte.Salary = Int32.Parse(parameters[3]);
+                                fte.Email = parameters[4];
+                                fte.Password = parameters[5];
                                 blHandler.AddEmployee(fte);
                                 break;
 
